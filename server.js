@@ -35,8 +35,41 @@ app.get("/", function(req, res) {
     return res.json(waitlist);
   });
 
+  if (reservation.length < 5){
+  app.post("/api/reservation", function(req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    var reservation = req.body;
   
+    // Using a RegEx Pattern to remove spaces from newCharacter
+    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+    reservation.routeName = reservation.name.replace(/\s+/g, "").toLowerCase();
+  
+    console.log(reservation);
+  
+    characters.push(reservation);
+  
+    res.json(reservation);
+  });
+  }
 
+  else{
+    app.post("/api/waitlist", function(req, res) {
+        // req.body hosts is equal to the JSON post sent from the user
+        // This works because of our body parsing middleware
+        var waitlist = req.body;
+      
+        // Using a RegEx Pattern to remove spaces from newCharacter
+        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+        waitlist.routeName = waitlist.name.replace(/\s+/g, "").toLowerCase();
+      
+        console.log(waitlist);
+      
+        characters.push(waitlist);
+      
+        res.json(waitlist);
+  });
+  }
 
 
 app.listen(PORT, function() {
