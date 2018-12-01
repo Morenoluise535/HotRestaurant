@@ -52,12 +52,27 @@
   
   $("#btn-primary").on("click", function(event) {
     event.preventDefault();
-    var newCharacter = {
+    var newReservation = {
       name: $("#name").val().trim(),
       phonenumber: $("#Phonenumber").val().trim(),
       email: $("#exampleInputEmail1").val().trim(),
       uniqueid: $("#uniqueid").val().trim()
     };
+    
+    if (reservation.length < 5){
+    $.post("/api/reservation", newReservation)
+        .then(function(data) {
+          console.log(data);
+          alert("Adding new reservation...");
+        });
+      }
+    else{
+      $.post("/api/waitlist", newReservation)
+        .then(function(data) {
+          console.log(data);
+          alert("Adding to waitlist...");
+        });
+    }
 });
 </script>
 
